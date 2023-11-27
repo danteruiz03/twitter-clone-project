@@ -475,8 +475,4 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-/Dante.API/.idea/.idea.Dante/.idea/.name
-/Dante.API/appsettings.Development.json
-/Dante.API/.idea/.idea.Dante/.idea/vcs.xml
-/Dante.API/.idea/.idea.Dante/.idea/workspace.xml
-/Dante.API/.idea/.idea.Dante/.idea/indexLayout.xml
+

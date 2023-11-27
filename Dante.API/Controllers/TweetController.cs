@@ -23,17 +23,14 @@ namespace Dante.API.Controllers
         {
             var userId = HttpContext.GetUserId();
 
-            if (userId != null)
-            {
-                var followingList = await _followingRepository
-                    .GetFollowingList(new Guid(userId))
-                    .ToListAsync();
+            if (userId == null) return BadRequest();
+            var followingList = await _followingRepository
+                .GetFollowingList(new Guid(userId))
+                .ToListAsync();
 
-                var tweets = await _tweetRepository.GetTweets(followingList).ToListAsync();
-                return Ok(tweets);
-            }
+            var tweets = await _tweetRepository.GetTweets(followingList).ToListAsync();
+            return Ok(tweets);
 
-            return BadRequest();
         }
     }
 }
