@@ -1,0 +1,13 @@
+<div class="header">Login</div>
+<div class="body">
+  <form [formGroup]="form">
+    <label for="username">Username</label>
+    <input id="username" type="text" formControlName="username">
+    <label for="password">Password</label>
+    <input id="password" type="type" formControlName="password">
+  </form>
+</div>
+<div class="footer">
+  <button>Submit</button>
+  <a routerLink="/register"><button>Register</button></a>
+</div>
