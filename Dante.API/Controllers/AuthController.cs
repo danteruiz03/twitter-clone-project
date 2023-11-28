@@ -4,6 +4,7 @@ using Dante.API.Models;
 using Dante.API.Utilities;
 using Dante.Data.Entity;
 using Dante.Data.Repository.Interface;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -70,15 +71,6 @@ namespace Dante.API.Controllers
             }
 
             return BadRequest("Username or password incorrect");
-        }
-
-        [HttpGet]
-        [Route("test")]
-        [Authorize]
-        public IActionResult Test()
-        {
-            var userId = HttpContext.GetUserId();
-            return Ok(userId);
         }
     }
 }
