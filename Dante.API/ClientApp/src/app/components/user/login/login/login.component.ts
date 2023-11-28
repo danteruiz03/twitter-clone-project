@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { User } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -9,10 +12,25 @@ import { Route, Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  constructor(private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private authService: AuthService,
+    private router: Router) { }
 
   form = new FormGroup({
     username: new FormControl(''),
     password: new FormControl('')
   })
+
+  submit() {
+    const user: User = {
+      username: this.form.controls['username']?.value ?? '',
+      password: this.form.controls['password']?.value ?? ''
+    }
+
+    this.userService.login(user).subscribe(token => {
+      this.authService.storeToken(token);
+      this.router.navigateByUrl('');
+    });
+  }
 }
