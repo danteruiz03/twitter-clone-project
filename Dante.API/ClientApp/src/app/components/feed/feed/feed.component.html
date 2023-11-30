@@ -1,2 +1,18 @@
-<p>feed works!</p>
-<button (click)="logout()">Logout</button>
+<div class="header">
+    <div class="user-image-header"> Dante</div>
+    <button (click)="logout()">Logout</button>
+</div>
+
+<div class="tweet-input">
+    <label for="textarea">What's on your mind?</label>
+    <textarea name="tweetarea" id="textarea" cols="20" rows="5"></textarea>
+    <button>Tweet</button>
+</div>
+
+<div *ngFor="let tweet of tweets" class="tweet">
+    <div class="user-image">Image</div>
+    <div class="main">
+        <div class="user">{{tweet.user}}</div>
+        <div class="content">{{tweet.content}}</div>
+    </div>
+</div>
