@@ -1,0 +1,41 @@
+:host {
+    width: 75%;
+    border: 1px solid black;
+    height: 100vh;
+    padding: 10px;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 50px;
+        padding: 20px;
+
+        .user-image-header {
+            font-size: 20px;
+            border: 1px solid;
+        }
+    }
+
+    .tweet-input {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 30px;
+    }
+
+    .tweet {
+        display: flex;
+        margin-bottom: 10px;
+        
+
+        .user-image {
+            height: 60px;
+            width: 60px;
+            border: 1px solid black;
+            margin-right: 5px;
+        }
+
+        .content {
+            border: none;
+        }
+    }
+}
