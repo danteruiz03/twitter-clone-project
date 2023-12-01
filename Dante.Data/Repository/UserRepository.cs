@@ -32,6 +32,11 @@ namespace Dante.Data.Repository
         {
             return await _dbContext.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.UserName == username);
         }
+
+        public async Task<User?> GetUserById(string id)
+        {
+            return await _dbContext.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Id.ToString() == id);
+        }
     }
 }
 

@@ -4,7 +4,7 @@ namespace Dante.Data.Repository.Interface;
 
 public interface ITweetRepository
 {
-    IQueryable<Tweet> GetTweets(List<Following> followingUsers);
+    IQueryable<Tweet> GetTweets(IEnumerable<Following> followingUsers, Guid userId);
 
     Task PostTweet(Tweet tweet);
 }

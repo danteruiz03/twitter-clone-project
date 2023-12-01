@@ -8,6 +8,10 @@ public class AutoMapperProfile : Profile
 {
     public AutoMapperProfile()
     {
-        CreateMap<UserDto, User>().ReverseMap();
+        CreateMap<LoginDto, User>().ReverseMap();
+
+        CreateMap<User, UserDto>()
+            .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.RoleId.ToString()))
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.UserName));
     }
 }

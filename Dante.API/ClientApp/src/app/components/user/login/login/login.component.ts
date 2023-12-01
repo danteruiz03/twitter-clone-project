@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/user.model';
+import { Login } from 'src/app/models/login.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -23,7 +23,7 @@ export class LoginComponent {
   })
 
   submit() {
-    const user: User = {
+    const user: Login = {
       username: this.form.controls['username']?.value ?? '',
       password: this.form.controls['password']?.value ?? ''
     }

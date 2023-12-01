@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { feedGuard } from './guards/feed.guard';
+import { userResolver } from './resolvers/user.resolver';
 
 const routes: Routes = [
   {
@@ -10,7 +11,8 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./components/feed/feed.module').then(m => m.FeedModule),
-    canActivate: [feedGuard]
+    canActivate: [feedGuard],
+    resolve: { userData: userResolver }
   }
 ];
 

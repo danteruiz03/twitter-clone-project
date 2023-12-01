@@ -1,4 +1,4 @@
 export interface Tweet {
-    user: string;
+    userName: string;
     content: string;
 }

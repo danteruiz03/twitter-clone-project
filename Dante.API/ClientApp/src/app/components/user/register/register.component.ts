@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { User } from 'src/app/models/user.model';
+import { Login } from 'src/app/models/login.model';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class RegisterComponent {
   })
 
   submit() {
-    const user: User = {
+    const user: Login = {
       username: this.form.controls['username']?.value ?? '',
       password: this.form.controls['password']?.value ?? ''
     }

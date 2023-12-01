@@ -22,6 +22,10 @@
         margin-bottom: 30px;
     }
 
+    .tweet-container {
+        overflow-y: auto;
+    }
+
     .tweet {
         display: flex;
         margin-bottom: 10px;
