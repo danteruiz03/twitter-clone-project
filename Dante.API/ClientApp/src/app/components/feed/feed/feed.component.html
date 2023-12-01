@@ -1,18 +1,22 @@
 <div class="header">
-    <div class="user-image-header"> Dante</div>
+    <div class="user-image-header"> {{this.user.name}}</div>
     <button (click)="logout()">Logout</button>
 </div>
 
-<div class="tweet-input">
-    <label for="textarea">What's on your mind?</label>
-    <textarea name="tweetarea" id="textarea" cols="20" rows="5"></textarea>
-    <button>Tweet</button>
-</div>
+<form [formGroup]="form">
+    <div class="tweet-input">
+        <label for="textarea">What's on your mind?</label>
+        <textarea formControlName="content" name="tweetarea" id="textarea" cols="20" rows="5"></textarea>
+        <button [disabled]="!form.valid" (click)="submit()">Tweet</button>
+    </div>
+</form>
 
-<div *ngFor="let tweet of tweets" class="tweet">
-    <div class="user-image">Image</div>
-    <div class="main">
-        <div class="user">{{tweet.user}}</div>
-        <div class="content">{{tweet.content}}</div>
+<div class="tweet-container">
+    <div *ngFor="let tweet of tweets" class="tweet">
+        <div class="user-image">Image</div>
+        <div class="main">
+            <div class="user">{{tweet.userName}}</div>
+            <div class="content">{{tweet.content}}</div>
+        </div>
     </div>
 </div>

@@ -13,12 +13,12 @@ public class TweetRepository : ITweetRepository
         _dbContext = dbContext;
     }
 
-    public IQueryable<Tweet> GetTweets(List<Following> followingUsers)
+    public IQueryable<Tweet> GetTweets(IEnumerable<Following> followingUsers, Guid userId)
     {
         var followingUserIds = followingUsers.Select(following => following.FollowingUserId);
 
         return _dbContext.Tweets
-            .Where(t => followingUserIds.Contains(t.UserId))
+            .Where(t => (followingUserIds.Contains(t.UserId) || t.UserId == userId))
             .OrderByDescending(t => t.CreatedDate);
     }
 

@@ -1,11 +1,8 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using Dante.API.Models;
 using Dante.API.Utilities;
 using Dante.Data.Entity;
 using Dante.Data.Repository.Interface;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dante.API.Controllers
@@ -35,16 +32,16 @@ namespace Dante.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] UserDto userDto)
+        public async Task<IActionResult> Register([FromBody] LoginDto loginDto)
         {
-            var user = await _userRepository.GetUserByUserName(userDto.UserName);
+            var user = await _userRepository.GetUserByUserName(loginDto.UserName);
 
             if (user != null)
             {
                 return BadRequest("Username is already taken");
             }
 
-            var userDomainModel = _mapper.Map<User>(userDto);
+            var userDomainModel = _mapper.Map<User>(loginDto);
 
             var role = await _roleRepository.GetUserRole();
             await _userRepository.CreateUser(userDomainModel, role);
@@ -54,13 +51,13 @@ namespace Dante.API.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] UserDto userDto)
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            var user = await _userRepository.GetUserByUserName(userDto.UserName);
+            var user = await _userRepository.GetUserByUserName(loginDto.UserName);
 
             if (user != null)
             {
-                var checkPasswordResult = await _userRepository.CheckPasswordAsync(user, userDto.Password);
+                var checkPasswordResult = await _userRepository.CheckPasswordAsync(user, loginDto.Password);
 
                 if (checkPasswordResult)
                 {
@@ -71,6 +68,20 @@ namespace Dante.API.Controllers
             }
 
             return BadRequest("Username or password incorrect");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetUserDetails()
+        {
+            var user = await _userRepository.GetUserById(HttpContext.GetUserId());
+
+            if (user != null)
+            {
+                var userDto = _mapper.Map<UserDto>(user);
+                return Ok(userDto);
+            }
+
+            return BadRequest();
         }
     }
 }

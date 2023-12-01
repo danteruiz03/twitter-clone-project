@@ -25,6 +25,8 @@ builder.Services.AddDbContext<DanteDbContext>(options =>
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<IFollowingRepository, FollowingRepository>();
+builder.Services.AddScoped<ITweetRepository, TweetRepository>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
