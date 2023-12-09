@@ -1,7 +1,7 @@
-import { ResolveFn, Router } from '@angular/router';
+import { ResolveFn } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { inject } from '@angular/core';
-import { catchError, map, mergeMap, of } from 'rxjs';
+import { mergeMap, of } from 'rxjs';
 
 export const userResolver: ResolveFn<any> = () => {
   const userService = inject(UserService);

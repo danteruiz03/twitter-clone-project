@@ -13,5 +13,8 @@ public class AutoMapperProfile : Profile
         CreateMap<User, UserDto>()
             .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.RoleId.ToString()))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.UserName));
+
+        CreateMap<Tweet, TweetDto>()
+            .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName));
     }
 }
