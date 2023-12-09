@@ -5,6 +5,7 @@ import { Subject, map, switchMap, takeUntil } from 'rxjs';
 import { Tweet } from 'src/app/models/tweet.model';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { ProfileService } from 'src/app/services/profile.service';
 import { TweetService } from 'src/app/services/tweet.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -15,6 +16,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class FeedComponent implements OnInit, OnDestroy {
   private _destroying$ = new Subject<void>;
+  showProfile: boolean = false;
 
   form = new FormGroup({
     content: new FormControl('', {
@@ -35,12 +37,14 @@ export class FeedComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private userService: UserService,
-    private tweetService: TweetService
+    private tweetService: TweetService,
+    private profileService: ProfileService
   ) { }
 
   ngOnInit(): void {
     this.user = this.userService.getUser();
     this.tweets = this.tweetService.getTweets();
+    console.log(this.tweets)
 
     this.tweetService.tweetsChanged
       .pipe(
@@ -72,6 +76,18 @@ export class FeedComponent implements OnInit, OnDestroy {
       this.form.reset();
       this.tweetService.tweetsChanged.next();
     });
+  }
+
+  findProfile(event: Event) {
+    this.profileService.fetchProfile((event.target as HTMLInputElement).value)
+      .pipe(takeUntil(this._destroying$))
+      .subscribe({
+        next: (result) => {
+          this.profileService.setProfile(result);
+          this.router.navigateByUrl('/' + result.userName);
+        },
+        error: () => window.alert('Cannot find user')
+      })
   }
 
   ngOnDestroy(): void {

@@ -3,11 +3,13 @@ using Dante.API.Models;
 using Dante.API.Utilities;
 using Dante.Data.Entity;
 using Dante.Data.Repository.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dante.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TweetController : ControllerBase
@@ -29,15 +31,15 @@ namespace Dante.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTweets()
         {
-            var userId = Guid.Parse(HttpContext.GetUserId()!);
+            var userId = Guid.Parse(HttpContext.GetUserId());
 
-            if (userId == null) return BadRequest();
             var followingList = await _followingRepository
                 .GetFollowingList(userId)
                 .ToListAsync();
 
-            var tweets = await _tweetRepository.GetTweets(followingList, userId).ToListAsync();
-            return Ok(tweets);
+            var tweetsDomainModel = await _tweetRepository.GetTweets(followingList, userId).ToListAsync();
+
+            return Ok(_mapper.Map<List<TweetDto>>(tweetsDomainModel));
         }
 
         [HttpPost]

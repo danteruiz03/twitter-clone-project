@@ -1,0 +1,16 @@
+<div class="header">
+    <div class="user-image-header"> {{this.profile.userName}}</div>
+    <button (click)="follow()">{{status}}</button>
+    <button (click)="home()">Home</button>
+    <button (click)="logout()">Logout</button>
+</div>
+
+<div class="tweet-container">
+    <div *ngFor="let tweet of profile.tweets" class="tweet">
+        <div class="user-image">Image</div>
+        <div class="main">
+            <div class="user">{{tweet.userName}}</div>
+            <div class="content">{{tweet.content}}</div>
+        </div>
+    </div>
+</div>

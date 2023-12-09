@@ -3,6 +3,7 @@ using Dante.API.Models;
 using Dante.API.Utilities;
 using Dante.Data.Entity;
 using Dante.Data.Repository.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dante.API.Controllers
@@ -32,6 +33,7 @@ namespace Dante.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [Route("register")]
+        [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] LoginDto loginDto)
         {
             var user = await _userRepository.GetUserByUserName(loginDto.UserName);
@@ -71,6 +73,7 @@ namespace Dante.API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetUserDetails()
         {
             var user = await _userRepository.GetUserById(HttpContext.GetUserId());

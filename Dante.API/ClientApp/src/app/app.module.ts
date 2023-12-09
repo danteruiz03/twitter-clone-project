@@ -8,6 +8,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 // import { first, firstValueFrom, of } from 'rxjs';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { ProfileComponent } from './components/feed/feed/profile/profile.component';
 
 // function appInit(authService: AuthService) {
 //   console.log('checked')
@@ -25,6 +26,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
